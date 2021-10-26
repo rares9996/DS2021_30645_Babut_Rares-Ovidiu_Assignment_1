@@ -2,10 +2,9 @@ package net.dsrl.lab1.controller;
 
 import javax.validation.Valid;
 
-import net.dsrl.lab1.model.dto.JwtResponse;
+import net.dsrl.lab1.model.dto.JwtResponseDto;
 import net.dsrl.lab1.model.dto.LoginDto;
 import net.dsrl.lab1.model.dto.RegisterDto;
-import net.dsrl.lab1.model.dto.UserDto;
 import net.dsrl.lab1.service.AuthenticationService;
 import net.dsrl.lab1.service.RegisterService;
 import org.springframework.http.ResponseEntity;
@@ -29,7 +28,7 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<JwtResponse> authenticatication(@Valid @RequestBody LoginDto loginRequest) {
+    public ResponseEntity<JwtResponseDto> authenticatication(@Valid @RequestBody LoginDto loginRequest) {
 
         return ResponseEntity.ok(authenticationService.authenticateUser(loginRequest));
     }

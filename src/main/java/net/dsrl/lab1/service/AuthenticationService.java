@@ -1,6 +1,6 @@
 package net.dsrl.lab1.service;
 
-import net.dsrl.lab1.model.dto.JwtResponse;
+import net.dsrl.lab1.model.dto.JwtResponseDto;
 import net.dsrl.lab1.model.dto.LoginDto;
 import net.dsrl.lab1.security.jwt.JwtUtils;
 import net.dsrl.lab1.security.services.UserDetailsImpl;
@@ -28,7 +28,7 @@ public class AuthenticationService {
     this.jwtUtils = jwtUtils;
   }
 
-  public JwtResponse authenticateUser(LoginDto loginRequest) {
+  public JwtResponseDto authenticateUser(LoginDto loginRequest) {
     Authentication authentication =
         authenticationManager.authenticate(
             new UsernamePasswordAuthenticationToken(
@@ -43,6 +43,6 @@ public class AuthenticationService {
             .map(GrantedAuthority::getAuthority)
             .collect(Collectors.toList());
 
-    return new JwtResponse(jwt, userDetails.getId(), userDetails.getUsername(), roles);
+    return new JwtResponseDto(jwt, userDetails.getId(), userDetails.getUsername(), roles);
   }
 }
