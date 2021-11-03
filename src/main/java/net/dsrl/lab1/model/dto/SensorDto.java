@@ -4,6 +4,9 @@ import lombok.Getter;
 import lombok.Setter;
 import net.dsrl.lab1.model.MonitoredValue;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Setter
 @Getter
 public class SensorDto {
@@ -11,5 +14,5 @@ public class SensorDto {
   private Long id;
   private String description;
   private Double maximumValue;
-  private MonitoredValue monitoredValue = new MonitoredValue();
+  private Set<MonitoredValue> monitoredValue = new HashSet<>();
 }

@@ -8,6 +8,7 @@ import javax.persistence.*;
 @Entity
 @Setter
 @Getter
+@Table(name = "device")
 public class Device {
 
     @Id

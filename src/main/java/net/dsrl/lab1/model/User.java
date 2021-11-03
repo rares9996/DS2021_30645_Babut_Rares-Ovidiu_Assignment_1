@@ -11,7 +11,7 @@ import java.util.Set;
 @Entity
 @Setter
 @Getter
-@Table(uniqueConstraints = {
+@Table(name = "user", uniqueConstraints = {
         @UniqueConstraint(name = "UniqueUsername", columnNames = {"username"})})
 public class User {
 
@@ -42,11 +42,12 @@ public class User {
 
   public User() {}
 
-  public User(String name, Date birthdayDate, String address, String username, String password) {
+  public User(String name, Date birthdayDate, String address, String username, String password, Set<Device> devices) {
     this.name = name;
     this.birthdayDate = birthdayDate;
     this.address = address;
     this.username = username;
     this.password = password;
+    this.devices = devices;
   }
 }

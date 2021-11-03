@@ -43,6 +43,6 @@ public class AuthenticationService {
             .map(GrantedAuthority::getAuthority)
             .collect(Collectors.toList());
 
-    return new JwtResponseDto(jwt, userDetails.getId(), userDetails.getUsername(), roles);
+    return new JwtResponseDto(jwt, userDetails.getId(), userDetails.getUsername(), roles, userDetails.getName());
   }
 }

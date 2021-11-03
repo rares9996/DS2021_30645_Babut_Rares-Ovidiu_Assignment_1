@@ -14,4 +14,10 @@ public class DeviceDto {
   private Double maximumEnergyConsumption;
   private Double averageEnergyConsumption;
   private Sensor sensor = new Sensor();
+
+  @Override
+  public String toString()
+  {
+    return this.id+" "+this.description;
+  }
 }

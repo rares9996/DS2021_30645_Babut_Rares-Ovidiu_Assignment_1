@@ -2,6 +2,7 @@ package net.dsrl.lab1.controller;
 
 import net.dsrl.lab1.mapper.DeviceMapper;
 import net.dsrl.lab1.model.dto.DeviceDto;
+import net.dsrl.lab1.model.dto.SensorDto;
 import net.dsrl.lab1.service.DeviceService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -56,5 +57,22 @@ public class DeviceController {
   public ResponseEntity<Void> deleteDevice(@PathVariable Long id) {
     deviceService.deleteDevice(id);
     return ResponseEntity.noContent().build();
+  }
+
+  @GetMapping("/not-assigned")
+  @PreAuthorize("hasAnyRole('ADMIN')")
+  public ResponseEntity<List<DeviceDto>> getUnassignedSensord()
+  {
+    return ResponseEntity.ok(
+            deviceService.getDevicesWithoutUser().stream()
+                    .map((deviceMapper::convertToDto))
+                    .collect(Collectors.toList()));
+  }
+  @GetMapping("/user/{username}")
+  public ResponseEntity<List<DeviceDto>> getDevicesOfUser(@Valid @PathVariable String username) {
+    return ResponseEntity.ok(
+            deviceService.getDeviceOfUser(username).stream()
+                    .map((deviceMapper::convertToDto))
+                    .collect(Collectors.toList()));
   }
 }

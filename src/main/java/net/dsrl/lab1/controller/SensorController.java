@@ -1,6 +1,7 @@
 package net.dsrl.lab1.controller;
 
 import net.dsrl.lab1.mapper.SensorMapper;
+import net.dsrl.lab1.model.dto.DeviceDto;
 import net.dsrl.lab1.model.dto.SensorDto;
 import net.dsrl.lab1.service.SensorService;
 import org.springframework.http.ResponseEntity;
@@ -57,5 +58,22 @@ public class SensorController {
   public ResponseEntity<Void> deleteDevice(@PathVariable Long id) {
     sensorService.deleteSensor(id);
     return ResponseEntity.noContent().build();
+  }
+
+  @GetMapping("/not-assigned")
+  @PreAuthorize("hasAnyRole('ADMIN')")
+  public ResponseEntity<List<SensorDto>> getUnassignedSensord()
+  {
+    return ResponseEntity.ok(
+            sensorService.getSensorsWithoutDevice().stream()
+                    .map((sensorMapper::convertToDto))
+                    .collect(Collectors.toList()));
+  }
+  @GetMapping("/user/{username}")
+  public ResponseEntity<List<SensorDto>> getSensorsOfUser(@Valid @PathVariable String username) {
+    return ResponseEntity.ok(
+            sensorService.getSensorOfUser(username).stream()
+                    .map((sensorMapper::convertToDto))
+                    .collect(Collectors.toList()));
   }
 }

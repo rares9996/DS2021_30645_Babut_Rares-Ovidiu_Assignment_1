@@ -38,7 +38,8 @@ public class RegisterService {
             signUpRequest.getBirthdayDate(),
             signUpRequest.getAddress(),
             signUpRequest.getUsername(),
-            encoder.encode(signUpRequest.getPassword()));
+            encoder.encode(signUpRequest.getPassword()),
+            signUpRequest.getDevices());
 
     Set<String> strRoles = signUpRequest.getRoles();
     Set<Role> roles = new HashSet<>();

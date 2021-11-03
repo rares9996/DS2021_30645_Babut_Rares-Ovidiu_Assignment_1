@@ -5,10 +5,13 @@ import net.dsrl.lab1.model.User;
 import net.dsrl.lab1.model.dto.UserDto;
 import net.dsrl.lab1.repository.DeviceRepositoy;
 import net.dsrl.lab1.repository.UserRepository;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService {
@@ -22,7 +25,9 @@ public class UserService {
   }
 
   public List<User> getAllUsers() {
-    return userRepository.findAll();
+    List<User> users = userRepository.findAll();
+    String currentUsername = ((UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
+    return users.stream().filter((user)->!user.getUsername().equals(currentUsername)).collect(Collectors.toList());
   }
 
   public User getUserByUsername(String username) {
@@ -38,7 +43,6 @@ public class UserService {
     user.setUsername(userDto.getUsername());
     user.setDevices(userDto.getDevices());
     user.setName(userDto.getName());
-
     return userRepository.save(user);
   }
 
