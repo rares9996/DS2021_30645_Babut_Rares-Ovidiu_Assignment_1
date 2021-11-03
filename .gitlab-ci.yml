@@ -1,0 +1,17 @@
+stages:
+  - build
+  - test
+  - checkstyle
+
+build:
+  stage: build
+  image: maven:3.3.9-jdk-8
+  script:
+    - mvn clean package
+
+checkstyle:
+  stage: checkstyle
+  image: maven:3.3.9-jdk-8
+  script:
+    - echo "Checkstyle DEMO app"
+    - mvn checkstyle:check
